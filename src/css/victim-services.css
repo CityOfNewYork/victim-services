@@ -19,26 +19,6 @@ span.srch-lbl-sm {
   cursor: pointer;
 }
 
-.fnd #banner>div {
-  overflow: hidden;
-  background-color: #046;
-  text-overflow: ellipsis;
-}
-
-@media only screen and (max-width : 580px) {
-  .fnd #banner {
-    padding-left: 80px;
-  }
-}
-@media only screen and (max-width : 415px) {
-  .fnd #banner {
-    padding-left: 170px;
-  }
-  .fnd #banner span {
-    display: none;
-  }
-}
-
 .reset {
   width: 100px;
   margin-left: calc(50% - 50px);
@@ -119,6 +99,10 @@ a.btn.rad-all.call, button.btn.rad-all.call {
   margin-right: 9px;
 }
 
+.translated-rtl .shr {
+  text-align: left;
+}
+
 .shr .btns {
   position: fixed;
   left: 43px;
@@ -130,13 +114,20 @@ a.btn.rad-all.call, button.btn.rad-all.call {
   margin: 0 4px 0 0;
 }
 
-#lng.button .btn-sq, #lng.button select {
-  position: absolute;
-  left: 82px;
-  bottom: -37px;
-  height: 35px;
+#lng .btn-sq, #lng select {
+  padding: 0;
   width: 35px;
-  z-index: 1;
+  height: 35px;
+}
+
+.translated-rtl #lng {
+  left: 86px;
+}
+
+#lng {
+  position: absolute;
+  left: 85px;
+  bottom: 5px;
 }
 
 .btn-z-out {
@@ -317,7 +308,6 @@ a.filter-info {
 
 .dia-msg h1 {
   font-size: 24px;
-  margin: -10px 0 0 0;
 }
 
 .phone-dia .dia, .info-dia .dia {
@@ -325,7 +315,6 @@ a.filter-info {
   margin-left: -208px;
   margin-top: -140px;
 }
-
 
 .pop>.content {
   overflow-x: hidden;
@@ -417,18 +406,6 @@ a.btn.rad-all.web font {
   background-color: transparent;
 }
 
-@media only screen and (max-width: 400px) {
-.fnd .splash .dia {
-    width: 286px;
-    left: calc(50% - 152px);
-  }
-}
-
-@media only screen and (max-height: 400px) {
-  .fnd .splash .dia {
-    top: 15%;
-  }
-}
 .translated-rtl a.btn.rad-all.phone {
   padding-right: 28px;
   padding-left: 0px;
