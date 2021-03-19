@@ -15,7 +15,7 @@ describe('decorations', () => {
     })
 
   test('extendFeature', () => {
-    expect.assertions(11)
+    expect.assertions(17)
     accessibleFeature.extendFeature()
     otherFeature.extendFeature()
     
@@ -43,6 +43,12 @@ describe('decorations', () => {
     accessibleFeature.extendFeature()
     
     expect(accessibleFeature.countByLocation[accessibleFeature.locationKey]).toBe(2)  
+
+    const competencies = accessibleFeature.competencies
+    competencies.forEach((comp, index) => {
+      expect(accessibleFeature.get(comp.trim())).toBe('1')
+      expect(competencies[index]).toBe(comp.trim())
+    })
   })
   test('getCountAtLocation', () => {
     expect.assertions(1)
@@ -202,7 +208,7 @@ describe('decorations', () => {
 
   test('culturalHtml', () => {
     expect.assertions(2)
-    expect(accessibleFeature.culturalHtml()).toEqual($('<div class="cultural"><div class="name">Cultural competency specializations:</div><div>All Communities</div></div>'))
+    expect(accessibleFeature.culturalHtml()).toEqual($('<div class="cultural"><div class="name">Cultural competency specializations:</div><div>Arab/Middle Eastern, LGBTQ+, Jewish</div></div>'))
 
     expect(notAccessibleFeature.culturalHtml()).toEqual(undefined)
   

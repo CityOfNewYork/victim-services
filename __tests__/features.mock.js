@@ -58,7 +58,7 @@ const accessibleFeatureSource = {
   OTHER_LANGUAGE: 'other language',
   WHEELCHAIR_ACCESS: 1,
   REFERRAL_REQUIRED: 'Self-Referral',
-  CULTURAL_COMPETENCIES_SPECIALIZATIONS: 'All Communities',
+  CULTURAL_COMPETENCIES_SPECIALIZATIONS: 'Arab/Middle Eastern, LGBTQ+, Jewish',
   BOROUGH: 'Brooklyn',
   X: 962810,
   Y: 173464,

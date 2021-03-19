@@ -1,6 +1,6 @@
 {
   "name": "victim-services",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "NYC Crime Victim Services Finder",
   "main": "index.js",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cmenedes/victim-services.git"
+    "url": "git+https://github.com/CityOfNewYork/victim-services.git"
   },
   "author": "Tim Keane/Christopher Menedes",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/cmenedes/victim-services/issues"
+    "url": "https://github.com/CityOfNewYork/victim-services/issues"
   },
-  "homepage": "https://github.com/cmenedes/victim-services#readme",
+  "homepage": "https://github.com/CityOfNewYork/victim-services#readme",
   "dependencies": {
     "jquery": "^3.5.0",
     "nyc-lib": "^1.4.34",

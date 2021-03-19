@@ -53,6 +53,16 @@ const decorations = {
       'fjc',
       this.get('LOCATION_NAME').toLowerCase().indexOf('family justice center') > -1 ? '1' : ''
     )
+
+    this.competencies = this.get('CULTURAL_COMPETENCIES_SPECIALIZATIONS') || ''
+    if(this.competencies.length > 0) {
+      this.competencies = this.competencies.split(',')
+      this.competencies.forEach((comp, index) => {
+        let trimmed = comp.trim()
+        this.competencies[index] = trimmed
+        this.set(trimmed, '1') 
+      })
+    }
     this.getGeometry().containsXY = function(x, y) {
       const coord = this.getCoordinates()
       return coord[0] === x && coord[1] === y

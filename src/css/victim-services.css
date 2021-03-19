@@ -410,3 +410,13 @@ a.btn.rad-all.web font {
   padding-right: 28px;
   padding-left: 0px;
 }
+
+/* the following is to be replaced in nyc-lib */
+.chc-chc {
+  height: auto;
+  min-height: 33px;
+}
+
+.chc-chc td:last-of-type {
+  width: 90%;
+}

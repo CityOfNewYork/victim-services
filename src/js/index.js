@@ -51,6 +51,10 @@ new App({
           name: 'PROPERTY/FINANCIAL_CRIMES',
           values: ['1'],
           label: 'Property/financial crime'
+        }, {
+          name: 'HATE_CRIME',
+          values: ['1'],
+          label: 'Hate crime'
         }
       ]
     },
@@ -89,7 +93,27 @@ new App({
         {name: 'YIDDISH', values: ['1'], label: 'Yiddish'},
         {name: 'other_languages', values: ['1'], label: 'Other'}
       ]
-    }
+    },
+    {
+      title: 'Cultural Competency Specializations',
+      choices: [
+        {name: 'Arab/Middle Eastern', values: ['1'], label: 'Arab/Middle Eastern'},
+        {name: 'Asian/Pacific Islander', values: ['1'], label: 'Asian/Pacific Islander'},
+        {name: 'Black/African American/African', values: ['1' ], label: 'Black/African American/African'},
+        {name: 'Caribbean/Indo-Caribbean', values: ['1'], label: 'Caribbean/Indo-Caribbean'},
+        {name: 'Hispanic/Latino/a/x', values: ['1'], label: 'Hispanic/Latino/a/x' },
+        {name: 'South Asian', values: ['1'], label: 'South Asian'},
+        {name: 'Jewish', values: ['1'], label: 'Jewish'},
+        {name: 'Hindu', values: ['1'], label: 'Hindu'},
+        {name: 'Muslim', values: ['1'], label: 'Muslim'},
+        {name: 'Sikh', values: ['1'], label: 'Sikh'},
+        {name: 'Indigenous/First People/American Indian/Native American', values: ['1'], label: 'Indigenous/First People/American Indian/Native American'},
+        {name: 'LGBTQ+', values: ['1'], label: 'LGBTQ+'},
+        {name: 'Transgender and Gender Nonconforming Focus', values: ['1'], label: 'Transgender and Gender Nonconforming Focus'},
+        {name: 'People with Disabilities', values: ['1'], label: 'People with Disabilities'}
+      ]
+    },  
+
       
   ],
   facilitySearch: {displayField: 'search_label', nameField: 'ORGANIZATION_NAME'},
