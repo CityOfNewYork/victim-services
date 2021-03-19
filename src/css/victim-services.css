@@ -21,7 +21,7 @@ span.srch-lbl-sm {
 
 .reset {
   width: 100px;
-  margin-left: calc(50% - 50px);
+  margin: calc(50% - 50px);
   margin-top: 10px;
 }
 
