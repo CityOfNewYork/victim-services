@@ -214,12 +214,18 @@ describe('decorations', () => {
       accessibleFeature.makeList = makeList
     })
     test('culturalHtml', () => {
-      expect.assertions(3)
+      expect.assertions(4)
       accessibleFeature.extendFeature()
   
       expect(accessibleFeature.culturalHtml()).toEqual(result)
       expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
       expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.competencies)
+
+      accessibleFeature.makeList = jest.fn().mockImplementation(() => {
+        return $('<ul></ul>')
+      })
+      accessibleFeature.extendFeature()
+      expect(accessibleFeature.culturalHtml()).toBe(undefined)
     })
   })
 
