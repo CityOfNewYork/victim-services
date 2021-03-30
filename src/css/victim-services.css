@@ -247,7 +247,7 @@ a.filter-info {
   margin-bottom: 10px; 
 }
 
-.detail .name, .services li, .languages li {
+.detail .name {
   text-transform: capitalize;
 }
 

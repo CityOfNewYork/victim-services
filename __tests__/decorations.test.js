@@ -2,6 +2,7 @@ import decorations from '../src/js/decorations'
 import OlFeature from 'ol/Feature';
 import {notAccessibleFeature, accessibleFeature, otherFeature} from './features.mock'
 import nyc from 'nyc-lib/nyc'
+import fields from '../src/js/fields'
 
 
 describe('decorations', () => {
@@ -15,7 +16,7 @@ describe('decorations', () => {
     })
 
   test('extendFeature', () => {
-    expect.assertions(17)
+    expect.assertions(11)
     accessibleFeature.extendFeature()
     otherFeature.extendFeature()
     
@@ -44,11 +45,6 @@ describe('decorations', () => {
     
     expect(accessibleFeature.countByLocation[accessibleFeature.locationKey]).toBe(2)  
 
-    const competencies = accessibleFeature.competencies
-    competencies.forEach((comp, index) => {
-      expect(accessibleFeature.get(comp.trim())).toBe('1')
-      expect(competencies[index]).toBe(comp.trim())
-    })
   })
   test('getCountAtLocation', () => {
     expect.assertions(1)
@@ -166,7 +162,7 @@ describe('decorations', () => {
 
       expect(accessibleFeature.servicesHtml()).toEqual(result)
       expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
-      expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(decorations.services)
+      expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.services)
       expect(accessibleFeature.makeList.mock.calls[0][1]).toBe(accessibleFeature.get('OTHER_SERVICE'))
   
       accessibleFeature.makeList = jest.fn().mockImplementation(() => {
@@ -194,7 +190,7 @@ describe('decorations', () => {
 
       expect(accessibleFeature.languagesHtml()).toEqual(result)
       expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
-      expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(decorations.languages)
+      expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.languages)
       expect(accessibleFeature.makeList.mock.calls[0][1]).toBe(accessibleFeature.get('OTHER_LANGUAGE'))
   
       accessibleFeature.makeList = jest.fn().mockImplementation(() => {
@@ -206,12 +202,25 @@ describe('decorations', () => {
     })  
   })
 
-  test('culturalHtml', () => {
-    expect.assertions(2)
-    expect(accessibleFeature.culturalHtml()).toEqual($('<div class="cultural"><div class="name">Cultural competency specializations:</div><div>Arab/Middle Eastern, LGBTQ+, Jewish</div></div>'))
-
-    expect(notAccessibleFeature.culturalHtml()).toEqual(undefined)
+  describe('culturalHtml', () => {
+    const makeList = accessibleFeature.makeList
+    const result = $('<div class="cultural"><div class="name">Cultural competency specializations:</div><ul><li>mockCompetencies<li></ul></div>')
+    beforeEach(() => {
+      accessibleFeature.makeList = jest.fn().mockImplementation(() => {
+        return $('<ul><li>mockCompetencies<li></ul>')
+      })
+    })
+    afterEach(() => {
+      accessibleFeature.makeList = makeList
+    })
+    test('culturalHtml', () => {
+      expect.assertions(3)
+      accessibleFeature.extendFeature()
   
+      expect(accessibleFeature.culturalHtml()).toEqual(result)
+      expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
+      expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.competencies)
+    })
   })
 
   test('referralHtml', () => {
@@ -288,26 +297,26 @@ test('phoneHtml undefined', () => {
 test('makeList', () => {
   expect.assertions(6)
   let ul
-  let listItem1 = 'ITEM-WITH-DASHES'
-  let listItem2 = 'ITEM_WITH_UNDERSCORES'
   let other = 'other item'
-  const items = [listItem1, listItem2]
+  const items = {
+    'ITEM-WITH-DASHES': 'Item With Dashes', 
+    'ITEM_WITH_UNDERSCORES': 'Item With Underscores'
+  }
 
-  accessibleFeature.set(listItem1, 1)
-  accessibleFeature.set(listItem2, 1)
+  accessibleFeature.set(Object.keys(items)[0], 1)
+  accessibleFeature.set(Object.keys(items)[1], 1)
   
   ul = accessibleFeature.makeList(items, '')
-
-  expect(ul.children().length).toBe(items.length)
-  expect(ul).toEqual($('<ul><li>item with dashes</li><li>item with underscores</li></ul>'))
+  expect(ul.children().length).toBe(Object.keys(items).length)
+  expect(ul).toEqual($('<ul><li>Item With Dashes</li><li>Item With Underscores</li></ul>'))
   
   ul = accessibleFeature.makeList(items, other)
 
-  expect(ul.children().length).toBe(items.length + 1)  
-  expect(ul).toEqual($('<ul><li>item with dashes</li><li>item with underscores</li><li>other item</li></ul>'))
+  expect(ul.children().length).toBe(Object.keys(items).length + 1)  
+  expect(ul).toEqual($('<ul><li>Item With Dashes</li><li>Item With Underscores</li><li>other item</li></ul>'))
 
-  accessibleFeature.unset(listItem1)
-  accessibleFeature.unset(listItem2)
+  accessibleFeature.unset(Object.keys(items)[0])
+  accessibleFeature.unset(Object.keys(items)[1])
 
   let mockItems = ['mockLanguage']
   ul = accessibleFeature.makeList(mockItems, '')

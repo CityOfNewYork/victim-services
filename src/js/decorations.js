@@ -2,37 +2,9 @@
  * @module victimservices/decorations
  */
 
+import fields from './fields'
+
 const decorations = {
-  services: [
-    'CASE_MANAGEMENT',
-    'CRISIS_INTERVENTION',
-    'LEGAL_SERVICES',
-    'SAFETY_PLANNING',
-    'IMMIGRATION_SERVICES',
-    'EMERGENCY_OR_TRANSITIONAL_SHELTER',
-    'PERMANENT_HOUSING',
-    'HEALTH_CARE',
-    'MENTAL_HEALTH_COUNSELING',
-    'DRUG_ADDICTION_SCREENING_AND_TREATMENT',
-    'LANGUAGE_INTERPRETATION',
-    'PUBLIC_BENEFITS',
-    'JOB_TRAINING_AND_ECONOMIC_EMPOWERMENT',
-    'RESTORATIVE_JUSTICE'
-  ],
-  languages: [
-    'SPANISH',
-    'ARABIC',
-    'BENGALI',
-    'CHINESE',
-    'FRENCH',
-    'HAITIAN-CREOLE',
-    'ITALIAN',
-    'KOREAN',
-    'POLISH',
-    'RUSSIAN',
-    'URDU',
-    'YIDDISH'
-  ],
   extendFeature() {
     const locationKey = `${this.get('X')}@${this.get('Y')}`
     const count = decorations.countByLocation[locationKey] || 0
@@ -53,16 +25,6 @@ const decorations = {
       'fjc',
       this.get('LOCATION_NAME').toLowerCase().indexOf('family justice center') > -1 ? '1' : ''
     )
-
-    this.competencies = this.get('CULTURAL_COMPETENCIES_SPECIALIZATIONS') || ''
-    if(this.competencies.length > 0) {
-      this.competencies = this.competencies.split(',')
-      this.competencies.forEach((comp, index) => {
-        let trimmed = comp.trim()
-        this.competencies[index] = trimmed
-        this.set(trimmed, '1') 
-      })
-    }
     this.getGeometry().containsXY = function(x, y) {
       const coord = this.getCoordinates()
       return coord[0] === x && coord[1] === y
@@ -169,24 +131,24 @@ const decorations = {
     }
   },
   servicesHtml() {
-    const ul = this.makeList(this.services, this.get('OTHER_SERVICE'))
+    const ul = this.makeList(fields.services, this.get('OTHER_SERVICE'))
     if (ul.children().length){
       const div = $('<div class="services"><div class="name">Services offered:</div></div>')
       return div.append(ul)
     }
   },
   languagesHtml() {
-    const ul = this.makeList(this.languages, this.get('OTHER_LANGUAGE'))
+    const ul = this.makeList(fields.languages, this.get('OTHER_LANGUAGE'))
     if (ul.children().length){
       const div = $('<div class="languages"><div class="name">Languages offered:</div></div>')
       return div.append(ul)
     }
   },
   culturalHtml() {
-    const cultural = this.get('CULTURAL_COMPETENCIES_SPECIALIZATIONS')
-    if (cultural){
-      return $('<div class="cultural"><div class="name">Cultural competency specializations:</div></div>')
-        .append(`<div>${cultural}</div>`)
+    const ul = this.makeList(fields.competencies)
+    if (ul.children().length) {
+      const div = $('<div class="cultural"><div class="name">Cultural competency specializations:</div></div>')
+        return div.append(ul)
     }
   },
   referralHtml() {
@@ -196,12 +158,12 @@ const decorations = {
         .append(`<div>${referral}</div>`)
     }
   },
-  makeList(list, other) {
+  makeList(fields, other) {
     const ul = $('<ul></ul>')
-    list.sort()
-    list.forEach(item => {
-      if(this.get(item)){
-        const li = $('<li></li>').html(item.toLowerCase().replace(/_/g, ' ').replace(/-/g, ' '))
+    Object.keys(fields).forEach((field) => {
+      const li = $('<li></li>')
+      if(this.get(field)){
+        li.html(fields[field])
         ul.append(li)
       }
     })
