@@ -3,6 +3,7 @@
  */
 
 import fields from './fields'
+import Collapsible from 'nyc-lib/nyc/Collapsible'
 
 const decorations = {
   extendFeature() {
@@ -101,7 +102,6 @@ const decorations = {
     const div = $('<div></div>')
     const phone = $('<div class="phone"><b>Phone:</b> </div>')
     return div.append(this.hoursHtml())
-      .append(phone.append(this.phoneHtml()))
       .append(this.eligibilityHtml())
       .append(this.referralHtml())
       .append(this.servicesHtml())
@@ -130,25 +130,33 @@ const decorations = {
         .append(eligibility)
     }
   },
+  collapsible(title, content) {
+    return new Collapsible({
+      target: $('<div class="sub-clps"></div>'),
+      collapsed: true,
+      title,
+      content
+    }).getContainer()
+  },
   servicesHtml() {
     const ul = this.makeList(fields.services, this.get('OTHER_SERVICE'))
     if (ul.children().length){
-      const div = $('<div class="services"><div class="name">Services offered:</div></div>')
-      return div.append(ul)
+      const div = $('<div><div class="name">Services offered:</div></div>')
+      return this.collapsible('Services offered', ul)
     }
   },
   languagesHtml() {
     const ul = this.makeList(fields.languages, this.get('OTHER_LANGUAGE'))
     if (ul.children().length){
-      const div = $('<div class="languages"><div class="name">Languages offered:</div></div>')
-      return div.append(ul)
+      const div = $('<div><div class="name">Languages offered:</div></div>')
+      return this.collapsible('Languages', ul)
     }
   },
   culturalHtml() {
     const ul = this.makeList(fields.competencies)
     if (ul.children().length) {
-      const div = $('<div class="cultural"><div class="name">Cultural competency specializations:</div></div>')
-        return div.append(ul)
+      const div = $('<div><div class="name">Cultural competency specializations:</div></div>')
+      return this.collapsible('Cultural competencies', ul)
     }
   },
   referralHtml() {

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "prebuild": "yarn test && yarn roll-css",
+    "build-no-test": "yarn roll-css && webpack",
+    "prebuild": "yarn roll-css",
     "roll-css": "./node_modules/nyc-lib/css/roll-css.sh ./src/css/victim-services.theme.css ./src/css/victim-services.css",
     "predeploy": "yarn build",
     "deploy": "node deploy"

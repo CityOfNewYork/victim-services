@@ -420,3 +420,10 @@ a.btn.rad-all.web font {
 .chc-chc td:last-of-type {
   width: 90%;
 }
+
+.sub-clps {
+  margin: 3px 0;
+}
+.sub-clps:last-of-type {
+  margin-bottom: 0;
+}
