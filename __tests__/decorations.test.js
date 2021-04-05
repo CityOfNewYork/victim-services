@@ -3,13 +3,16 @@ import OlFeature from 'ol/Feature';
 import {notAccessibleFeature, accessibleFeature, otherFeature} from './features.mock'
 import nyc from 'nyc-lib/nyc'
 import fields from '../src/js/fields'
+import Collapsible from 'nyc-lib/nyc/Collapsible'
 
+jest.mock('nyc-lib/nyc/Collapsible')
 
 describe('decorations', () => {
     let container
     beforeEach(() => {
       container = $('<div></div>')
       $('body').append(container)
+      Collapsible.mockReset()
     })
     afterEach(() => {
       container.remove()
@@ -118,14 +121,30 @@ describe('decorations', () => {
     
   })
 
-  test('detailsHtml', () => {
-    expect.assertions(1)
-    expect(accessibleFeature.detailsHtml().children().length).toBe(7)
-    // expect(accessibleFeature.detailsHtml()).toBe(
-    //   `${accessibleFeature.hoursHtml()}${accessibleFeature.phoneHtml()}${accessibleFeature.eligibilityHtml()}${accessibleFeature.servicesHtml()}${accessibleFeature.languagesHtml()}${accessibleFeature.culturalHtml()}`
-    // )
-    
-  
+  describe('detailsHtml', () => {
+    const culturalHtml = accessibleFeature.culturalHtml
+    const servicesHtml = accessibleFeature.servicesHtml
+    const languagesHtml = accessibleFeature.languagesHtml
+    beforeEach(() => {
+      accessibleFeature.culturalHtml = jest.fn().mockImplementation(() => {
+        return $('<div>mockCompetencies</div>')
+      })
+      accessibleFeature.languagesHtml = jest.fn().mockImplementation(() => {
+        return $('<div>mockLanguages</div>')
+      })
+      accessibleFeature.servicesHtml = jest.fn().mockImplementation(() => {
+        return $('<div>mockServices</div>')
+      })
+    })
+    afterEach(() => {
+      accessibleFeature.culturalHtml = culturalHtml
+      accessibleFeature.servicesHtml = servicesHtml
+      accessibleFeature.languagesHtml = languagesHtml
+    })
+    test('detailsHtml', () => {
+      expect.assertions(1)
+      expect(accessibleFeature.detailsHtml().html()).toBe('<div class=\"hours\"><div class=\"name\">Hours of operation:</div><div>Monday - Friday: 9 am - 5 pm<div></div></div> (Saturday: 8 am - 8 pm)</div><div class=\"eligibility\"><div class=\"name\">Eligibility criteria:</div>Serves NYC Residents Only</div><div class=\"referral\"><div class=\"name\">Referral required:</div><div>Self-Referral</div></div><div>mockServices</div><div>mockLanguages</div><div>mockCompetencies</div>')
+    })
   })
 
   test('hoursHtml', () => {
@@ -145,87 +164,125 @@ describe('decorations', () => {
     expect(notAccessibleFeature.eligibilityHtml()).toEqual(undefined)
   })
 
-  describe('servicesHtml', () => {
-    const makeList = accessibleFeature.makeList
-    const result = $('<div class="services"><div class="name">Services offered:</div><ul><li>mockService<li></ul></div>')
+
+  describe('collapsible', () => {
+    const getContainer = Collapsible.prototype.getContainer
     beforeEach(() => {
-      accessibleFeature.makeList = jest.fn().mockImplementation(() => {
-        return $('<ul><li>mockService<li></ul>')
+      Collapsible.prototype.getContainer = jest.fn(() => {
+        return 'collapsible-container'
       })
     })
     afterEach(() => {
-      accessibleFeature.makeList = makeList
+      Collapsible.prototype.getContainer = getContainer
     })
-    test('servicesHtml', () => {
-      expect.assertions(5)
-      accessibleFeature.extendFeature()
-
-      expect(accessibleFeature.servicesHtml()).toEqual(result)
-      expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
-      expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.services)
-      expect(accessibleFeature.makeList.mock.calls[0][1]).toBe(accessibleFeature.get('OTHER_SERVICE'))
-  
-      accessibleFeature.makeList = jest.fn().mockImplementation(() => {
-        return $('<ul></ul>')
-      })
-      accessibleFeature.extendFeature()
-      expect(accessibleFeature.servicesHtml()).toBe(undefined)
-
-    })  
+    test('collapsible', () => {
+      const content = $('<div>Collapsible Content</div>')
+      expect(accessibleFeature.collapsible('Collapsible Title', content)).toBe('collapsible-container')
+      expect(Collapsible.mock.calls.length).toBe(1)
+      expect(Collapsible.mock.calls[0][0].target).toEqual($('<div class="sub-clps"></div>'))
+      expect(Collapsible.mock.calls[0][0].collapsed).toBe(true)
+      expect(Collapsible.mock.calls[0][0].title).toBe('Collapsible Title')
+      expect(Collapsible.mock.calls[0][0].content).toBe(content)
+    })
   })
-  describe('languagesHtml', () => {
-    const makeList = accessibleFeature.makeList
-    const result = $('<div class="languages"><div class="name">Languages offered:</div><ul><li>mockLanguage<li></ul></div>')
+  describe('uses collapsible' , () => {
+    const collapsible = accessibleFeature.collapsible
     beforeEach(() => {
-      accessibleFeature.makeList = jest.fn().mockImplementation(() => {
-        return $('<ul><li>mockLanguage<li></ul>')
+      accessibleFeature.collapsible = jest.fn(() => {
+        return 'collapsible-content'
       })
     })
     afterEach(() => {
-      accessibleFeature.makeList = makeList
+      accessibleFeature.collapsible = collapsible
     })
-    test('languagesHtml', () => {
-      expect.assertions(5)
-      accessibleFeature.extendFeature()
-
-      expect(accessibleFeature.languagesHtml()).toEqual(result)
-      expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
-      expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.languages)
-      expect(accessibleFeature.makeList.mock.calls[0][1]).toBe(accessibleFeature.get('OTHER_LANGUAGE'))
+    describe('servicesHtml', () => {
+      const makeList = accessibleFeature.makeList
+      const result = $('<div class="services"><div class="name">Services offered:</div><ul><li>mockService<li></ul></div>')
+      beforeEach(() => {
+        accessibleFeature.makeList = jest.fn().mockImplementation(() => {
+          return $('<ul><li>mockService<li></ul>')
+        })
+      })
+      afterEach(() => {
+        accessibleFeature.makeList = makeList
+      })
+      test('servicesHtml', () => {
+        expect.assertions(7)
+        accessibleFeature.extendFeature()
   
-      accessibleFeature.makeList = jest.fn().mockImplementation(() => {
-        return $('<ul></ul>')
-      })
-      accessibleFeature.extendFeature()
-      expect(accessibleFeature.languagesHtml()).toBe(undefined)
-      
-    })  
-  })
-
-  describe('culturalHtml', () => {
-    const makeList = accessibleFeature.makeList
-    const result = $('<div class="cultural"><div class="name">Cultural competency specializations:</div><ul><li>mockCompetencies<li></ul></div>')
-    beforeEach(() => {
-      accessibleFeature.makeList = jest.fn().mockImplementation(() => {
-        return $('<ul><li>mockCompetencies<li></ul>')
-      })
-    })
-    afterEach(() => {
-      accessibleFeature.makeList = makeList
-    })
-    test('culturalHtml', () => {
-      expect.assertions(4)
-      accessibleFeature.extendFeature()
+        expect(accessibleFeature.servicesHtml()).toEqual('collapsible-content')
+        expect(accessibleFeature.collapsible.mock.calls[0][0]).toBe('Services offered')
+        expect(accessibleFeature.collapsible.mock.calls[0][1]).toEqual($('<ul><li>mockService<li></ul>'))
+        expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
+        expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.services)
+        expect(accessibleFeature.makeList.mock.calls[0][1]).toBe(accessibleFeature.get('OTHER_SERVICE'))
+    
+        accessibleFeature.makeList = jest.fn().mockImplementation(() => {
+          return $('<ul></ul>')
+        })
+        accessibleFeature.extendFeature()
+        expect(accessibleFeature.servicesHtml()).toBe(undefined)
   
-      expect(accessibleFeature.culturalHtml()).toEqual(result)
-      expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
-      expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.competencies)
-
-      accessibleFeature.makeList = jest.fn().mockImplementation(() => {
-        return $('<ul></ul>')
+      })  
+    })
+    describe('languagesHtml', () => {
+      const makeList = accessibleFeature.makeList
+      const result = $('<div class="languages"><div class="name">Languages offered:</div><ul><li>mockLanguage<li></ul></div>')
+      beforeEach(() => {
+        accessibleFeature.makeList = jest.fn().mockImplementation(() => {
+          return $('<ul><li>mockLanguage<li></ul>')
+        })
       })
-      accessibleFeature.extendFeature()
-      expect(accessibleFeature.culturalHtml()).toBe(undefined)
+      afterEach(() => {
+        accessibleFeature.makeList = makeList
+      })
+      test('languagesHtml', () => {
+        expect.assertions(7)
+        accessibleFeature.extendFeature()
+  
+        expect(accessibleFeature.languagesHtml()).toEqual('collapsible-content')
+        expect(accessibleFeature.collapsible.mock.calls[0][0]).toBe('Languages offered')
+        expect(accessibleFeature.collapsible.mock.calls[0][1]).toEqual($('<ul><li>mockLanguage<li></ul>'))
+        expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
+        expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.languages)
+        expect(accessibleFeature.makeList.mock.calls[0][1]).toBe(accessibleFeature.get('OTHER_LANGUAGE'))
+    
+        accessibleFeature.makeList = jest.fn().mockImplementation(() => {
+          return $('<ul></ul>')
+        })
+        accessibleFeature.extendFeature()
+        expect(accessibleFeature.languagesHtml()).toBe(undefined)
+        
+      })  
+    })
+  
+    describe('culturalHtml', () => {
+      const makeList = accessibleFeature.makeList
+      const result = $('<div class="cultural"><div class="name">Cultural competency specializations:</div><ul><li>mockCompetencies<li></ul></div>')
+      beforeEach(() => {
+        accessibleFeature.makeList = jest.fn().mockImplementation(() => {
+          return $('<ul><li>mockCompetencies<li></ul>')
+        })
+      })
+      afterEach(() => {
+        accessibleFeature.makeList = makeList
+      })
+      test('culturalHtml', () => {
+        expect.assertions(6)
+        accessibleFeature.extendFeature()
+    
+        expect(accessibleFeature.culturalHtml()).toEqual('collapsible-content')
+        expect(accessibleFeature.collapsible.mock.calls[0][0]).toBe('Cultural competencies')
+        expect(accessibleFeature.collapsible.mock.calls[0][1]).toEqual($('<ul><li>mockCompetencies<li></ul>'))
+        expect(accessibleFeature.makeList).toHaveBeenCalledTimes(1)
+        expect(accessibleFeature.makeList.mock.calls[0][0]).toBe(fields.competencies)
+  
+        accessibleFeature.makeList = jest.fn().mockImplementation(() => {
+          return $('<ul></ul>')
+        })
+        accessibleFeature.extendFeature()
+        expect(accessibleFeature.culturalHtml()).toBe(undefined)
+      })
     })
   })
 

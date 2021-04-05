@@ -100,7 +100,6 @@ const decorations = {
   },
   detailsHtml() {
     const div = $('<div></div>')
-    const phone = $('<div class="phone"><b>Phone:</b> </div>')
     return div.append(this.hoursHtml())
       .append(this.eligibilityHtml())
       .append(this.referralHtml())
@@ -141,21 +140,18 @@ const decorations = {
   servicesHtml() {
     const ul = this.makeList(fields.services, this.get('OTHER_SERVICE'))
     if (ul.children().length){
-      const div = $('<div><div class="name">Services offered:</div></div>')
       return this.collapsible('Services offered', ul)
     }
   },
   languagesHtml() {
     const ul = this.makeList(fields.languages, this.get('OTHER_LANGUAGE'))
     if (ul.children().length){
-      const div = $('<div><div class="name">Languages offered:</div></div>')
-      return this.collapsible('Languages', ul)
+      return this.collapsible('Languages offered', ul)
     }
   },
   culturalHtml() {
     const ul = this.makeList(fields.competencies)
     if (ul.children().length) {
-      const div = $('<div><div class="name">Cultural competency specializations:</div></div>')
       return this.collapsible('Cultural competencies', ul)
     }
   },

@@ -130,6 +130,10 @@ a.btn.rad-all.call, button.btn.rad-all.call {
   bottom: 5px;
 }
 
+#lng div.btn:after {
+  background-color: var(--color-dark);
+}
+
 .btn-z-out {
   left: 0;
   top: 39px;
@@ -411,6 +415,13 @@ a.btn.rad-all.web font {
   padding-left: 0px;
 }
 
+.sub-clps {
+  margin: 3px 0;
+}
+.sub-clps:last-of-type {
+  margin-bottom: 0;
+}
+
 /* the following is to be replaced in nyc-lib */
 .chc-chc {
   height: auto;
@@ -419,11 +430,4 @@ a.btn.rad-all.web font {
 
 .chc-chc td:last-of-type {
   width: 90%;
-}
-
-.sub-clps {
-  margin: 3px 0;
-}
-.sub-clps:last-of-type {
-  margin-bottom: 0;
 }

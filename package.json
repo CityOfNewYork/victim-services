@@ -1,13 +1,13 @@
 {
   "name": "victim-services",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "NYC Crime Victim Services Finder",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "build": "webpack",
     "build-no-test": "yarn roll-css && webpack",
-    "prebuild": "yarn roll-css",
+    "prebuild": "yarn test && yarn roll-css",
     "roll-css": "./node_modules/nyc-lib/css/roll-css.sh ./src/css/victim-services.theme.css ./src/css/victim-services.css",
     "predeploy": "yarn build",
     "deploy": "node deploy"
