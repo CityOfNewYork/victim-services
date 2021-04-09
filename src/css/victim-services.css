@@ -60,7 +60,6 @@ a.btn.rad-all.call, button.btn.rad-all.call {
   bottom: 5px;
   height: 35px;
   width: 33px;
-  z-index: 1;
 }
 .translated-rtl #phn {
   left: 7px;
@@ -76,7 +75,6 @@ a.btn.rad-all.call, button.btn.rad-all.call {
   bottom: 5px;
   height: 35px;
   width: 33px;
-  z-index: 1;
 }
 .translated-rtl #info {
   left: 48px;
@@ -422,12 +420,10 @@ a.btn.rad-all.web font {
   margin-bottom: 0;
 }
 
-/* the following is to be replaced in nyc-lib */
-.chc-chc {
-  height: auto;
-  min-height: 33px;
+.chc-chc td:last-of-type {
+  width: 100%;
 }
 
-.chc-chc td:last-of-type {
-  width: 90%;
+.chc-chc td {
+  padding-right: 10px;
 }
