@@ -31,7 +31,7 @@ describe('App is created', () => {
 
     expect(App.mock.calls[0][0].facilityStyle).toBe(facilityStyle.pointStyle)
 
-    expect(App.mock.calls[0][0].filterChoiceOptions.length).toBe(4)  
+    expect(App.mock.calls[0][0].filterChoiceOptions.length).toBe(5)  
 
     expect(App.mock.calls[0][0].facilitySearch.displayField).toEqual('search_label')
     expect(App.mock.calls[0][0].facilitySearch.nameField).toEqual('ORGANIZATION_NAME')
