@@ -427,3 +427,7 @@ a.btn.rad-all.web font {
 .chc-chc td {
   padding-right: 10px;
 }
+
+.fnd .splash .dia-msg {
+  height: calc(100% - 139px);
+}

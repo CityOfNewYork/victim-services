@@ -47,8 +47,12 @@ const decorations = {
     return this.get('ORGANIZATION_NAME')
   },
   getPhone() {
-    return this.get('PHONE')
-  },
+  const phone = this.get('PHONE') || ''
+    return phone.trim()
+      .replace(/ /g, '-')
+      .replace(/\-\-/g, '-')
+      .replace(/\-\-/g, '-')
+},
   getWebsite() {
     return this.get('WEBSITE')
   },
@@ -77,10 +81,9 @@ const decorations = {
       
   },
   phoneHtml(button) {
-    let phone = this.get('PHONE')
+    let phone = this.getPhone()
     
-    if (phone){
-      phone = phone.split(' ')[0].trim()
+    if (phone) {
       let result
       let ext = this.get('EXT')
       const readable = ext ? ' ext. ' + ext : ''
