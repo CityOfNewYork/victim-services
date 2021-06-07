@@ -4900,10 +4900,10 @@ nyc-build-helper@^0.0.39:
     webpack "4.19.1"
     zip-dir "^1.0.2"
 
-nyc-lib@^1.4.42:
-  version "1.4.42"
-  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.4.42.tgz#dcc1da01ea200d50690bc9f8a2c41d007019ae5b"
-  integrity sha512-Cf49tZVyANF9+ZIcvrUnEdI5pcVBnGL9llNtHM5Zh6sUYBvEQPhXgTgfisfgQDB68uH7XcnXGr2c5DFDW3+yYw==
+nyc-lib@^1.4.43:
+  version "1.4.43"
+  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.4.43.tgz#7eabf9672dba78876f991a49c1f3d4d7ba982791"
+  integrity sha512-Ft73O3q4AN1yZiIypC6MOuXX6aYB04MwBysLIfeppKxoSJTbrL+Z8IMX0hS1CVxxhYnVX/Kxmb653oJpC/uBXA==
   dependencies:
     eslint-config-openlayers "^11.0.0"
     eslint-import-resolver-alias "^1.1.2"
