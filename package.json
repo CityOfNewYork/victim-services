@@ -1,6 +1,6 @@
 {
   "name": "victim-services",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "NYC Crime Victim Services Finder",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/CityOfNewYork/victim-services#readme",
   "dependencies": {
     "jquery": "^3.5.0",
-    "nyc-lib": "^1.4.39",
+    "nyc-lib": "^1.4.42",
     "ol": "^6.5.0",
     "papaparse": "^5.2.0",
     "proj4": "^2.4.4"
@@ -47,7 +47,8 @@
     "**/**/serialize-javascript": "^3.1.0",
     "**/**/node-fetch": "^2.6.1",
     "**/**/ssri": "6.0.2",
-    "**/**/postcss": "^8.2.10"
+    "**/**/postcss": "^8.2.10",
+    "**/**/ws": "^7.4.6"
   },
   "jest": {
     "verbose": true,
