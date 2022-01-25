@@ -24,7 +24,7 @@
   "homepage": "https://github.com/CityOfNewYork/victim-services#readme",
   "dependencies": {
     "jquery": "^3.5.0",
-    "nyc-lib": "^1.4.43",
+    "nyc-lib": "^1.4.60",
     "ol": "^6.5.0",
     "papaparse": "^5.2.0",
     "proj4": "^2.4.4"
