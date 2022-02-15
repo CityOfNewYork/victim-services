@@ -27,7 +27,9 @@
     "nyc-lib": "^1.4.61",
     "ol": "^6.5.0",
     "papaparse": "^5.2.0",
-    "proj4": "^2.4.4"
+    "proj4": "^2.4.4",
+    "ssh2": "^1.4.0",
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -40,7 +42,7 @@
     "jest-canvas-mock": "^2.2.0",
     "jest-fetch-mock": "^1.6.5",
     "nyc-build-helper": "^0.0.40",
-    "postcss": "^8.4.5",
+    "postcss": "^8.2.10",
     "postcss-clean": "^1.2.2",
     "postcss-cli": "^9.1.0",
     "postcss-css-variables": "^0.18.0",
