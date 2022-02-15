@@ -935,9 +935,9 @@
     sort-object "^0.3.2"
 
 "@mapbox/mapbox-gl-style-spec@^13.20.1":
-  version "13.23.0"
-  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.23.0.tgz#dca481f78e6affd173c9c76fd9fde013b3cde41b"
-  integrity sha512-zI26XoK0UjGOvOEUUAoKlmFKHrSD8qIMCaoQBsFxNPzGIluryT32Z1m4aq7NtxEsrfE+qc2mPPXQg+iRllqbqA==
+  version "13.23.1"
+  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.23.1.tgz#481f41801517b7b52fea595f07d3633a903a250c"
+  integrity sha512-C6wh8A/5EdsgzhL6y6yl464VCQNIxK0yjrpnvCvchcFe3sNK2RbBw/J9u3m+p8Y6S6MsGuSMt3AkGAXOKMYweQ==
   dependencies:
     "@mapbox/jsonlint-lines-primitives" "~2.0.2"
     "@mapbox/point-geometry" "^0.1.0"
@@ -980,9 +980,9 @@
     fastq "^1.6.0"
 
 "@petamoriken/float16@^3.4.7":
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/@petamoriken/float16/-/float16-3.6.1.tgz#c49ae91e9fa26a1e3c15af7f95e2efa085100151"
-  integrity sha512-SI0ovmGj/cUKYvxwbGl5TGDdFFCPLK3/zdOS0RCoYeYJMQZojsoiljIRwnBKxPFk/IsxI160Pk9n42O+XihQdw==
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@petamoriken/float16/-/float16-3.6.2.tgz#a4c986305718d22d0f92f0b89722f6ef6b3fc18e"
+  integrity sha512-zZnksXtFBqvONcXWuAtSWrl3YXaDbU2ArRCCuzM42mP0GBJclD6e0GC3zEemmrjiMSOHcLPyRC4vOnAsnomJIw==
 
 "@types/babel__core@^7.1.0":
   version "7.1.7"
@@ -4930,10 +4930,10 @@ nyc-build-helper@^0.0.43:
     webpack "4.19.1"
     zip-a-folder "^1.1.0"
 
-nyc-lib@^1.4.60:
-  version "1.4.60"
-  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.4.60.tgz#71307454c83e1af702015e0d5bf4f0450766342c"
-  integrity sha512-hMyaBWQaTM2QwJHrc6o5rqf3MrGjA3rptHcQDN93VeCydo5crdM69eWH5lNRMpGbXjchAfhGz/kEV2lf8KgWag==
+nyc-lib@^1.4.61:
+  version "1.4.61"
+  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.4.61.tgz#b6a1c49adbbd58c21e794d6b16f0e414d3e12564"
+  integrity sha512-X7sBVGT7dr5NAMKAZE7xF3DDr7+h1Bi/lXjdS67U3kyIRd5SpIrn0aUZhkG7QleZF3wTWqduq5GaitS5rqR0TA==
   dependencies:
     global "^4.4.0"
     isomorphic-fetch "^2.2.1"
