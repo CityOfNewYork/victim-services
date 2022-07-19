@@ -1,6 +1,6 @@
 {
   "name": "victim-services",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "NYC Crime Victim Services Finder",
   "main": "index.js",
   "scripts": {
